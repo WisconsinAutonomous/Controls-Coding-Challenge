@@ -49,6 +49,17 @@ def to_tbs(accel: float) -> CarTBS:
     Examples: to_tbs(2.0) -> t=2, b=0.   to_tbs(-3.0) -> t=0, b=-3.
               to_tbs(9.0) -> t=5, b=0.   to_tbs(0.0)  -> t=0, b=0.
     """
+
+    t = 0
+    b = 0
+
+    if accel >= 0:
+        t = min(accel, 5)
+    else:
+        b = max(accel, -10)
+
+    return CarTBS(t=t, b=b)
+
     # TODO (Part 1)
     raise NotImplementedError("Part 1: to_tbs() is not written yet")
 
@@ -56,7 +67,7 @@ def to_tbs(accel: float) -> CarTBS:
 class SpeedController:
     def __init__(self):
         # TODO (Part 1): choose a proportional gain.  Units: (m/s^2) per (m/s).
-        self.kp = 0.0
+        self.kp = 1.0
         # TODO (Part 2): choose an integral gain.  Units: (m/s^2) per (m).
         self.ki = 0.0
         self.integral = 0.0    # accumulated speed error [m], used in Part 2
